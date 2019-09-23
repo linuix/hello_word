@@ -1,0 +1,10 @@
+/home/link/devTool/clion-2019.1.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/link/code/hello_word
+-------- Start compile ------------------
+SRC_ROOT_PATH: /home/link/code/hello_word
+CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+Please set them or make sure they are set and tested correctly in the CMake files:
+log-lib
+    linked by target "recordService" in directory /home/link/code/hello_word
+
+-- Configuring incomplete, errors occurred!
+See also "/home/link/code/hello_word/cmake-build-debug/CMakeFiles/CMakeOutput.log".
