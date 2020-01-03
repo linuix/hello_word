@@ -19,7 +19,6 @@
 #include <semaphore.h>
 #include "record.h"
 #include"include/OSAL_log.h"
-
 #define OSAL_LOG_MACRO(_level, _format, _args...)                                                                                                                                                           \
 	do                                                                                                                                                                                                      \
 	{                                                                                                                                                                                                       \
@@ -60,6 +59,7 @@ void *txz_dealclient(void *date);
 
 static sem_t s_sem;
 static bool s_flag = false;
+static bool s_runing = false;
 class Client
 {
 public:
@@ -168,6 +168,7 @@ static map<int, pair<pthread_t, Client *>> mapClient;
 
 int txz_recordServer_init()
 {
+	s_runing = true;
 	prctl(PR_SET_NAME, "tcp_server");
 	LOGD("tcp_server thread id = %ld", (long)gettid());
 	int listenfd = 0;
@@ -237,6 +238,11 @@ int txz_recordServer_init()
 	char *buff = nullptr;
 	while (true)
 	{
+		if (!s_runing)
+		{
+			break;
+		}
+		
 		//初始化文件描述符到集合
 		FD_ZERO(&client_fdset);
 		//加入服务器描述符
@@ -530,6 +536,11 @@ void *txz_record(void *date)
 	// }
 	while (true)
 	{
+		if (!s_runing)
+		{
+			break;
+		}
+		
 		if (s_flag == false)
 		{
 			if (!sem_wait(&s_sem))
@@ -573,4 +584,9 @@ void txz_recordServer_start()
 void txz_recordServer_stop()
 {
 	s_flag = false;
+}
+
+void txz_recordServer_destroy()
+{
+	s_runing = false;
 }

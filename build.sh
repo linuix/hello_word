@@ -33,4 +33,4 @@ rm -rf cmake_install.cmake
 rm -rf Makefile
 rm -rf CTestTestfile.cmake
 
-adb push ./bin/Release/recordService /data/local/rx5
+adb push ./bin/Release/recordService /data/bin

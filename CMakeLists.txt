@@ -34,13 +34,13 @@ set(
         SOURCE_FILES
         ${CPP_FILES_IN_UTILS}
         ${SRC_PATH}
-        # ./hello.cpp;
+        ./hello.cpp;
         
 )
  
 # include 头文件目录
 include_directories(${SRC_ROOT_PATH}./include/)
-#include_directories(.)
+link_directories(xiaomi4c-lib)
  
 # 编译成可执行文件，如果编译动态库可以用：target_link_libraries
 add_executable(recordService ${SOURCE_FILES})
@@ -62,8 +62,10 @@ target_link_libraries( # Specifies the target library.
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib}
-                       -Llibs tinyalsa
-                       -Wl,-rpath .
+                       tinyalsa
+                       cutils
+                       utils
+                #        -Wl,-rpath .
                        )
                        
 
